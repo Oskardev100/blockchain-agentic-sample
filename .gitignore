@@ -61,7 +61,7 @@ typings/
 .yarn-integrity
 
 # dotenv environment variables file
-.env
+#.env
 
 # next.js build output
 .next
@@ -90,3 +90,6 @@ public
 
 # VS Code directories
 .vscode/*
+
+# venv directory
+venv/

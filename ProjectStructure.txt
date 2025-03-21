@@ -1,0 +1,37 @@
+blockchain-agents-ai
+│── ai_agent/                   # AI Agent logic (LangChain + OpenAI)
+│   │── agent.py                   # Core AI agent logic
+│   │── utils.py                    # Helper functions
+│   │── config.py                   # API keys & configurations
+│
+│── contracts/                   # Solidity Smart Contracts
+│   │── Escrow.sol                  # Smart contract source code
+│   │── deploy/                      # Deployment scripts
+│   │   │── deploy.js                # Hardhat deployment script
+│   │   │── verify.js                # Script to verify contract on Etherscan
+│
+│── backend/                     # FastAPI / Express.js backend
+│   │── main.py                      # FastAPI app entry point
+│   │── routes.py                    # API endpoints
+│   │── services.py                   # Logic for AI & blockchain interaction
+│   │── database.py                   # Database connection (if used)
+│
+│── scripts/                      # Utility scripts for testing
+│   │── test_infura_connection.py     # Script to verify Infura connection
+│   │── interact_with_contract.py     # Python script to test contract execution
+│
+│── notebooks/                    # Jupyter Notebooks for documentation
+│   │── project_overview.ipynb        # High-level explanation
+│   │── ai_blockchain_demo.ipynb      # Interactive demo for AI agent & blockchain
+│
+│── docs/                         # Project documentation
+│   │── README.md                     # Project overview
+│   │── INSTALLATION.md                # Setup instructions
+│   │── API_DOCS.md                    # API usage details
+│
+│── .env.example                     # Sample environment variables
+│── .gitignore                        # Ignore unnecessary files
+│── README.md                         # Main project documentation
+│── requirements.txt                   # Python dependencies
+│── package.json                       # Node.js dependencies (if backend is in JS)
+│── hardhat.config.js                   # Hardhat configuration for Solidity contracts
