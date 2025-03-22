@@ -1,4 +1,44 @@
 blockchain-agents-ai
+│── ai_agent/                  # AI Agent logic (LangChain + OpenAI)
+│   │── agent.py                  # AI agent script (fetches ETH price, queries OpenAI)
+│
+│── contracts/                  # Solidity Smart Contracts
+│   │── Escrow.sol                 # Solidity contract for ETH escrow transactions
+│
+│── backend/                    # Backend API (FastAPI / Express.js)
+│   │── main.py                     # API entry point (if needed)
+│   │── routes.py                   # API routes
+│
+│── scripts/                     # Deployment & interaction scripts
+│   │── deploy.js                    # Deployment script for smart contract (Hardhat)
+│   │── interact_with_contract.py     # Python script to interact with contract (Web3.py)
+│   │── test_infura_connection.py     # Script to test connection to Ethereum (now using Ganache)
+│
+│── notebooks/                   # Jupyter Notebooks for documentation
+│   │── project_overview.ipynb        # High-level documentation
+│   │── ai_blockchain_demo.ipynb      # Code walkthrough for AI + Smart Contract
+│
+│── docs/                        # Project documentation
+│   │── README.md                    # Main project documentation
+│   │── INSTALLATION.md               # Setup instructions
+│   │── API_DOCS.md                   # API documentation
+│
+│── hardhat/                      # Hardhat configuration & deployment scripts
+│   │── hardhat.config.js             # Hardhat network & Solidity compiler config
+│
+│── .gitignore                       # Ignore unnecessary files
+│── .env                              # Environment variables (API keys, private keys)
+│── package.json                      # Node.js dependencies (Hardhat, Ethers.js)
+│── requirements.txt                   # Python dependencies (Web3.py, LangChain, etc.)
+│── hardhat.config.js                  # Hardhat configuration
+
+
+
+
+Previous structure:
+
+
+blockchain-agents-ai
 │── ai_agent/                   # AI Agent logic (LangChain + OpenAI)
 │   │── agent.py                   # Core AI agent logic
 │   │── utils.py                    # Helper functions
