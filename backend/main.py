@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from dotenv import load_dotenv
 from ai_agent.agent import ask_ai, get_eth_price
 from ai_agent.interact_with_contract import deposit_eth
@@ -10,6 +11,20 @@ logger = logging.getLogger(__name__)
 
 load_dotenv()
 app = FastAPI()
+
+# Set up CORS
+origins = [
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 @app.get("/")
 def root():
@@ -45,3 +60,4 @@ def deposit():
         return {"message": "Deposited 1 ETH", "transaction": tx_hash}
     except Exception as e:
         logger.error(f"Error depositing ETH: {e}")
+        return {"error": "Error depositing ETH"}
