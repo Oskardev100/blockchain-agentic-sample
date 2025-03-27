@@ -3,6 +3,8 @@ from fastapi.middleware.cors import CORSMiddleware
 from dotenv import load_dotenv
 from ai_agent.agent import ask_ai, get_eth_price
 from ai_agent.interact_with_contract import deposit_eth
+from backend.database import SessionLocal, init_db, Transaction, Prediction
+from sqlalchemy.orm import Session
 
 import os
 import logging
@@ -60,8 +62,13 @@ def ai_insight():
 @app.post("/deposit")
 def deposit():
     try:
+        db: Session = SessionLocal()
         tx_hash = deposit_eth(1)
         tx_history.append(tx_hash)
+        tx = Transaction(tx_hash=tx_hash)
+        db.add(tx)
+        db.commit()
+        db.close() 
         logger.info(f"Deposited 1 ETH: {tx_hash}")
         return {"message": "Deposited 1 ETH", "transaction": tx_hash}
     except Exception as e:
@@ -70,17 +77,25 @@ def deposit():
     
 @app.get("/transactions")
 def get_transactions():
+    db: Session = SessionLocal()
+    transactions = db.query(Transaction).all()
+    db.close()
     return {"transactions": tx_history}
 
 @app.get("/predictions")
 def get_predictions():
+    db: Session = SessionLocal()
     price = get_eth_price()
     prompt = f"Ethereum is at ${price}. What is your short-term prediction?"
     insight = ask_ai(prompt)
 
-    prediction = {
-        "price": price,
-        "ai_response": insight
-    }
-    predictions.append(prediction)
-    return prediction
+    prediction = Prediction(price=price, ai_response=insight)
+    db.add(prediction)
+    db.commit()
+    db.close()
+
+    return {"price": price, "ai_response": insight}
+
+@app.on_event ("startup")
+def on_startup():
+    init_db()
