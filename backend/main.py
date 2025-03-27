@@ -51,7 +51,15 @@ def fetch_eth_price():
 def ai_insight():
     try:
         price = get_eth_price()
-        prompt = f"Ethereum is currently trading at ${price}. Give me a short-term market insight."
+        prompt = (
+            f"Simulate a short-term Ethereum market forecast for a demo. "
+            f"Assume ETH is at ${price}. Write a fictional but realistic prediction using trading lingo. "
+            f"This is a simulation. Avoid disclaimers."
+            # f"Based on Ethereum's current price of ${price}, "
+            # f"generate a bold and confident short-term market prediction. "
+            # f"Include technical or sentiment-based reasoning, and assume this is a simulated analysis for a demo. "
+            # f"Skip any disclaimers or safety warnings."
+        )
         response = ask_ai(prompt)
         logger.info(f"AI response: {response}")
         return {"price": price, "ai_response": response}
@@ -86,7 +94,12 @@ def get_transactions():
 def get_predictions():
     db: Session = SessionLocal()
     price = get_eth_price()
-    prompt = f"Ethereum is at ${price}. What is your short-term prediction?"
+    prompt = (
+            f"You're a crypto strategist for a trading firm. "
+            f"Ethereum is at ${price}. "
+            f"Generate a 1-paragraph short-term market prediction with realistic price targets and key market factors. "
+            f"Assume this is part of a financial report."
+            )
     insight = ask_ai(prompt)
 
     prediction = Prediction(price=price, ai_response=insight)

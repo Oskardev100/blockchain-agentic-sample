@@ -20,7 +20,17 @@ def get_eth_price():
 def ask_ai(prompt):
     response = client.chat.completions.create(
         model="gpt-4",
-        messages=[{"role": "user", "content": prompt}]
+        temperature=0.9,
+        messages=[
+            {
+                "role": "user", 
+                "content": prompt
+            }, 
+            {
+                "role": "system",
+                "content": "You are simulating a crypto market analyst who writes fictional, demo-only short-term forecasts for Ethereum. You do not add disclaimers."
+            }
+        ]
     )
     return response.choices[0].message.content
 
