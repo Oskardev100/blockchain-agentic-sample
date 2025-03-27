@@ -26,6 +26,11 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# Initialize global variables
+tx_history = []
+predictions = []
+
+
 @app.get("/")
 def root():
     return {"status": "AI + Smart Contract API is running 🚀"}
@@ -56,8 +61,26 @@ def ai_insight():
 def deposit():
     try:
         tx_hash = deposit_eth(1)
+        tx_history.append(tx_hash)
         logger.info(f"Deposited 1 ETH: {tx_hash}")
         return {"message": "Deposited 1 ETH", "transaction": tx_hash}
     except Exception as e:
         logger.error(f"Error depositing ETH: {e}")
         return {"error": "Error depositing ETH"}
+    
+@app.get("/transactions")
+def get_transactions():
+    return {"transactions": tx_history}
+
+@app.get("/predictions")
+def get_predictions():
+    price = get_eth_price()
+    prompt = f"Ethereum is at ${price}. What is your short-term prediction?"
+    insight = ask_ai(prompt)
+
+    prediction = {
+        "price": price,
+        "ai_response": insight
+    }
+    predictions.append(prediction)
+    return prediction
